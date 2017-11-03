@@ -11,4 +11,4 @@ target/
 build/
 .gradle/
 # Intellij
-.idea/
+.idea
