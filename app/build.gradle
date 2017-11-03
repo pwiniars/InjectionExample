@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.example.injectionexample"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "eventBusIndex" : "com.example.injectionexample.event.MyEventBusIndex"
+                ]
+            }
+        }
+
+        vectorDrawables.useSupportLibrary = true
+        resConfigs "pl"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile("com.android.support:appcompat-v7:$androidSupportVersion")
+    compile("com.android.support.constraint:constraint-layout:$constraintLayoutVersion")
+
+    compile("com.google.dagger:dagger:$daggerVersion")
+    annotationProcessor("com.google.dagger:dagger-compiler:$daggerVersion")
+
+    compile("com.google.dagger:dagger-android:$daggerVersion")
+    compile("com.google.dagger:dagger-android-support:$daggerVersion")
+    annotationProcessor("com.google.dagger:dagger-android-processor:$daggerVersion")
+
+    compile("org.greenrobot:eventbus:$eventBusVersion")
+    annotationProcessor("org.greenrobot:eventbus-annotation-processor:$eventBusProcessorVersion")
+
+    compile("com.jakewharton:butterknife:$butterKnifeVersion")
+    annotationProcessor("com.jakewharton:butterknife-compiler:$butterKnifeVersion")
+
+    testCompile 'junit:junit:4.12'
+}
